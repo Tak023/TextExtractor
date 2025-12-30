@@ -109,6 +109,11 @@ struct ShortcutsSettingsView: View {
                     label: "Capture Text (No Line Breaks)",
                     shortcut: "\u{21E7}\u{2318}8"
                 )
+
+                ShortcutRow(
+                    label: "Capture & Speak",
+                    shortcut: "\u{21E7}\u{2318}9"
+                )
             } header: {
                 Text("Global Shortcuts")
             } footer: {

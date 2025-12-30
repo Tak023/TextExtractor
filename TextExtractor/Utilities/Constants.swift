@@ -10,6 +10,7 @@ enum Constants {
     enum DefaultShortcuts {
         static let captureText = (keyCode: kVK_ANSI_7, modifiers: NSEvent.ModifierFlags([.command, .shift]))  // ⇧⌘7
         static let captureNoLineBreaks = (keyCode: kVK_ANSI_8, modifiers: NSEvent.ModifierFlags([.command, .shift]))  // ⇧⌘8
+        static let captureAndSpeak = (keyCode: kVK_ANSI_9, modifiers: NSEvent.ModifierFlags([.command, .shift]))  // ⇧⌘9
     }
 
     // Supported languages

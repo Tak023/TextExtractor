@@ -6,9 +6,11 @@ A lightweight macOS menu bar application for extracting text from any area of yo
 
 - **Quick Screen Capture**: Press a global hotkey to instantly start selecting a screen region
 - **Accurate OCR**: Uses Apple's Vision framework for high-quality text recognition
-- **Two Capture Modes**:
+- **Three Capture Modes**:
   - **With Line Breaks** (⇧⌘7): Preserves the original line structure of the text
   - **Without Line Breaks** (⇧⌘8): Joins all text into a single continuous string
+  - **Capture & Speak** (⇧⌘9): Captures text and reads it aloud using Text-to-Speech
+- **Text-to-Speech**: Have captured text read aloud with adjustable speech rate
 - **Visual Feedback**: Dark overlay with selection rectangle and dimension display
 - **Audio Confirmation**: Plays a sound when text is successfully copied
 - **Menu Bar Access**: Convenient menu bar icon (📋) for quick access
@@ -114,10 +116,12 @@ Launch TextExtractor from your Applications folder or use the provided launch sc
 1. **Using Hotkeys**:
    - Press `⇧⌘7` (Shift+Command+7) to capture with line breaks preserved
    - Press `⇧⌘8` (Shift+Command+8) to capture without line breaks
+   - Press `⇧⌘9` (Shift+Command+9) to capture and have the text read aloud
 
 2. **Using the Menu**:
    - Click the 📋 icon in the menu bar
-   - Select "Capture Text (⇧⌘7)" or "Capture Text No Breaks (⇧⌘8)"
+   - Select "Capture Text (⇧⌘7)", "Capture Text No Breaks (⇧⌘8)", or "Capture & Speak (⇧⌘9)"
+   - Use "Stop Speaking" to interrupt text-to-speech playback
 
 3. **Selecting a Region**:
    - A dark overlay will appear over your screen
@@ -127,8 +131,16 @@ Launch TextExtractor from your Applications folder or use the provided launch sc
 
 4. **Result**:
    - The extracted text is automatically copied to your clipboard
-   - A glass chime sound confirms successful capture
+   - A sound confirms successful capture
    - Paste the text anywhere using `⌘V`
+   - If using Capture & Speak, the text will be read aloud automatically
+
+### Text-to-Speech Settings
+
+You can adjust the speech rate in Preferences (click the menu bar icon → Preferences → General):
+- Use the Speech Rate slider to control how fast text is read aloud
+- Rate ranges from 0.5x (slower) to 2.0x (faster)
+- Default rate is 1.0x (normal speed)
 
 ### Quitting the Application
 
@@ -182,6 +194,7 @@ Debug captures are saved to `/tmp/textextractor_capture.png` for verification.
 - **Swift 5**: Primary programming language
 - **AppKit**: macOS UI framework for menu bar app and overlay window
 - **Vision Framework**: Apple's machine learning framework for OCR
+- **AVFoundation**: Text-to-Speech synthesis via `AVSpeechSynthesizer`
 - **Core Graphics**: Screen capture via `CGWindowListCreateImage`
 - **Carbon Events**: Global hotkey registration (`RegisterEventHotKey`)
 - **AudioToolbox**: System sound playback

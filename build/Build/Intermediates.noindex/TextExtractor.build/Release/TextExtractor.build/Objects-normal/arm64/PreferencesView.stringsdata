@@ -167,7 +167,7 @@
         "key": "Global Shortcuts",
         "location": {
           "startingColumn": 22,
-          "startingLine": 113
+          "startingLine": 118
         }
       },
       {
@@ -175,7 +175,7 @@
         "key": "These shortcuts work system-wide, even when Text Extractor is in the background.",
         "location": {
           "startingColumn": 22,
-          "startingLine": 115
+          "startingLine": 120
         }
       },
       {
@@ -183,7 +183,7 @@
         "key": "Search languages...",
         "location": {
           "startingColumn": 23,
-          "startingLine": 161
+          "startingLine": 166
         }
       },
       {
@@ -191,7 +191,7 @@
         "key": "%lld language(s) selected",
         "location": {
           "startingColumn": 22,
-          "startingLine": 180
+          "startingLine": 185
         }
       },
       {
@@ -199,7 +199,7 @@
         "key": "Reset to Default",
         "location": {
           "startingColumn": 24,
-          "startingLine": 186
+          "startingLine": 191
         }
       },
       {
@@ -207,7 +207,7 @@
         "key": "Add custom word...",
         "location": {
           "startingColumn": 27,
-          "startingLine": 240
+          "startingLine": 245
         }
       },
       {
@@ -215,7 +215,7 @@
         "key": "Add",
         "location": {
           "startingColumn": 24,
-          "startingLine": 246
+          "startingLine": 251
         }
       },
       {
@@ -223,7 +223,7 @@
         "key": "No Custom Words",
         "location": {
           "startingColumn": 26,
-          "startingLine": 260
+          "startingLine": 265
         }
       },
       {
@@ -231,7 +231,7 @@
         "key": "Add domain-specific words to improve OCR accuracy for technical terms, product names, or other specialized vocabulary.",
         "location": {
           "startingColumn": 26,
-          "startingLine": 263
+          "startingLine": 268
         }
       },
       {
@@ -239,7 +239,7 @@
         "key": "%lld word(s)",
         "location": {
           "startingColumn": 22,
-          "startingLine": 292
+          "startingLine": 297
         }
       },
       {
@@ -247,7 +247,7 @@
         "key": "Clear All",
         "location": {
           "startingColumn": 28,
-          "startingLine": 299
+          "startingLine": 304
         }
       },
       {
@@ -255,7 +255,7 @@
         "key": "Permissions",
         "location": {
           "startingColumn": 22,
-          "startingLine": 342
+          "startingLine": 347
         }
       },
       {
@@ -263,7 +263,7 @@
         "key": "Reset All Settings to Defaults",
         "location": {
           "startingColumn": 24,
-          "startingLine": 346
+          "startingLine": 351
         }
       },
       {
@@ -271,7 +271,7 @@
         "key": "Reset",
         "location": {
           "startingColumn": 22,
-          "startingLine": 351
+          "startingLine": 356
         }
       },
       {
@@ -279,7 +279,7 @@
         "key": "Version",
         "location": {
           "startingColumn": 32,
-          "startingLine": 355
+          "startingLine": 360
         }
       },
       {
@@ -287,7 +287,7 @@
         "key": "Build",
         "location": {
           "startingColumn": 32,
-          "startingLine": 356
+          "startingLine": 361
         }
       },
       {
@@ -295,7 +295,7 @@
         "key": "App Info",
         "location": {
           "startingColumn": 22,
-          "startingLine": 358
+          "startingLine": 363
         }
       },
       {
@@ -303,7 +303,7 @@
         "key": "Grant",
         "location": {
           "startingColumn": 24,
-          "startingLine": 398
+          "startingLine": 403
         }
       }
     ]

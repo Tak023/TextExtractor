@@ -314,6 +314,8 @@ SWIFT_CLASS("_TtC13TextExtractor11AppDelegate")
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication * _Nonnull)sender SWIFT_WARN_UNUSED_RESULT;
 - (void)captureWithLineBreaks;
 - (void)captureWithoutLineBreaks;
+- (void)captureAndSpeak;
+- (void)stopSpeaking;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

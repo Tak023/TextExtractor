@@ -33,11 +33,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var overlayWindow: NSWindow?
     private var overlayView: SelectionOverlayView?
     private var keepLineBreaks: Bool = true
+    private var speakAfterCapture: Bool = false
     private var successSound: NSSound?
+    private let speechService = SpeechService()
 
     // Hotkey references
     private var hotkeyRef1: EventHotKeyRef?
     private var hotkeyRef2: EventHotKeyRef?
+    private var hotkeyRef3: EventHotKeyRef?
     private static var shared: AppDelegate?
 
     // MARK: - App Lifecycle
@@ -109,6 +112,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Capture Text (⇧⌘7)", action: #selector(captureWithLineBreaks), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Capture Text No Breaks (⇧⌘8)", action: #selector(captureWithoutLineBreaks), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Capture & Speak (⇧⌘9)", action: #selector(captureAndSpeak), keyEquivalent: ""))
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Stop Speaking", action: #selector(stopSpeaking), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
@@ -131,6 +137,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                     AppDelegate.shared?.captureWithLineBreaks()
                 } else if hotkeyID.id == 2 {
                     AppDelegate.shared?.captureWithoutLineBreaks()
+                } else if hotkeyID.id == 3 {
+                    AppDelegate.shared?.captureAndSpeak()
                 }
             }
             return noErr
@@ -146,6 +154,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         var hotkey2 = EventHotKeyID(signature: OSType(0x4558), id: 2)
         let reg2 = RegisterEventHotKey(UInt32(kVK_ANSI_8), UInt32(shiftKey | cmdKey), hotkey2, GetApplicationEventTarget(), 0, &hotkeyRef2)
         log("RegisterEventHotKey ⇧⌘8 result: \(reg2)")
+
+        var hotkey3 = EventHotKeyID(signature: OSType(0x4558), id: 3)
+        let reg3 = RegisterEventHotKey(UInt32(kVK_ANSI_9), UInt32(shiftKey | cmdKey), hotkey3, GetApplicationEventTarget(), 0, &hotkeyRef3)
+        log("RegisterEventHotKey ⇧⌘9 result: \(reg3)")
     }
 
     // MARK: - Capture Actions
@@ -153,13 +165,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func captureWithLineBreaks() {
         log("captureWithLineBreaks called")
         keepLineBreaks = true
+        speakAfterCapture = false
         showOverlay()
     }
 
     @objc func captureWithoutLineBreaks() {
         log("captureWithoutLineBreaks called")
         keepLineBreaks = false
+        speakAfterCapture = false
         showOverlay()
+    }
+
+    @objc func captureAndSpeak() {
+        log("captureAndSpeak called")
+        keepLineBreaks = true
+        speakAfterCapture = true
+        showOverlay()
+    }
+
+    @objc func stopSpeaking() {
+        log("stopSpeaking called")
+        speechService.stop()
     }
 
     // MARK: - Overlay
@@ -314,6 +340,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         log("Text copied to clipboard, sound played")
+
+        // Speak the text if requested
+        if speakAfterCapture {
+            log("Speaking text...")
+            speechService.speak(text)
+        }
     }
 }
 

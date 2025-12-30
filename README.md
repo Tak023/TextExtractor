@@ -1,4 +1,3 @@
-=======
 # TextExtractor
 
 >>>>>>> c70d559 (Updated the crosshairs and sound notification)

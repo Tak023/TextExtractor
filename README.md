@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+# TextExtractor
+
+>>>>>>> c70d559 (Updated the crosshairs and sound notification)
 A lightweight macOS menu bar application for extracting text from any area of your screen using OCR (Optical Character Recognition). Similar to popular tools like TextSniper, TextExtractor allows you to quickly capture and copy text from images, PDFs, videos, or any on-screen content.
 
 ## Features

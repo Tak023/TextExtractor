@@ -102,27 +102,12 @@ struct ShortcutsSettingsView: View {
             Section {
                 ShortcutRow(
                     label: "Capture Text",
-                    shortcut: "\u{21E7}\u{2318}2"
+                    shortcut: "\u{21E7}\u{2318}7"
                 )
 
                 ShortcutRow(
                     label: "Capture Text (No Line Breaks)",
-                    shortcut: "\u{21E7}\u{2318}3"
-                )
-
-                ShortcutRow(
-                    label: "Capture with Text-to-Speech",
-                    shortcut: "\u{21E7}\u{2318}4"
-                )
-
-                ShortcutRow(
-                    label: "Capture Previous Selection",
-                    shortcut: "\u{21E7}\u{2318}5"
-                )
-
-                ShortcutRow(
-                    label: "Capture QR/Barcode",
-                    shortcut: "\u{21E7}\u{2318}6"
+                    shortcut: "\u{21E7}\u{2318}8"
                 )
             } header: {
                 Text("Global Shortcuts")

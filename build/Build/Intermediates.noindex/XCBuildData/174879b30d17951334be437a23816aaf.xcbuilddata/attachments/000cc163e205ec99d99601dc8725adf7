@@ -1,0 +1,111 @@
+{
+  "" : {
+    "const-values" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary.swiftconstvalues",
+    "dependencies" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary.d",
+    "diagnostics" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary.dia",
+    "emit-module-dependencies" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary-emit-module.dia",
+    "pch" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary.swiftdeps"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/App/AppDelegate.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AppDelegate.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/App/TextExtractorApp.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractorApp.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractorApp.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractorApp.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Models/AppSettings.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AppSettings.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AppSettings.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AppSettings.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Models/CaptureHistory.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureHistory.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureHistory.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureHistory.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Models/CaptureResult.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureResult.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureResult.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureResult.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/ClipboardService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/ClipboardService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/ClipboardService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/ClipboardService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/HotkeyService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/HotkeyService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/HotkeyService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/HotkeyService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/NotificationService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/NotificationService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/NotificationService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/NotificationService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/OCRService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/OCRService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/OCRService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/OCRService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/QRCodeService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/QRCodeService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/QRCodeService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/QRCodeService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/ScreenCaptureService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/ScreenCaptureService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/ScreenCaptureService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/ScreenCaptureService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/SoundService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/SoundService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/SoundService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/SoundService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Services/SpeechService.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/SpeechService.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/SpeechService.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/SpeechService.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Utilities/Constants.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/Constants.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/Constants.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/Constants.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Utilities/Extensions.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/Extensions.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/Extensions.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/Extensions.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Views/AboutView.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AboutView.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AboutView.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/AboutView.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Views/CaptureOverlayWindow.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureOverlayWindow.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureOverlayWindow.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/CaptureOverlayWindow.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Views/PermissionsView.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/PermissionsView.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/PermissionsView.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/PermissionsView.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Views/PreferencesView.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/PreferencesView.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/PreferencesView.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/PreferencesView.o"
+  },
+  "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}

@@ -344,10 +344,7 @@ SWIFT_CLASS("_TtC13TextExtractor20SelectionOverlayView")
 - (void)viewDidMoveToWindow;
 @property (nonatomic, readonly) BOOL acceptsFirstResponder;
 - (BOOL)acceptsFirstMouse:(NSEvent * _Nullable)event SWIFT_WARN_UNUSED_RESULT;
-- (void)mouseEntered:(NSEvent * _Nonnull)event;
 - (void)mouseMoved:(NSEvent * _Nonnull)event;
-- (void)cursorUpdate:(NSEvent * _Nonnull)event;
-- (void)resetCursorRects;
 - (void)keyDown:(NSEvent * _Nonnull)event;
 - (void)mouseDown:(NSEvent * _Nonnull)event;
 - (void)mouseDragged:(NSEvent * _Nonnull)event;

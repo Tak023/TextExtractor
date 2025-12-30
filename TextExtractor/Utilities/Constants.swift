@@ -8,11 +8,8 @@ enum Constants {
 
     // Default keyboard shortcuts
     enum DefaultShortcuts {
-        static let captureText = (keyCode: kVK_ANSI_2, modifiers: NSEvent.ModifierFlags([.command, .shift]))
-        static let captureNoLineBreaks = (keyCode: kVK_ANSI_3, modifiers: NSEvent.ModifierFlags([.command, .shift]))
-        static let captureWithSpeech = (keyCode: kVK_ANSI_4, modifiers: NSEvent.ModifierFlags([.command, .shift]))
-        static let capturePrevious = (keyCode: kVK_ANSI_5, modifiers: NSEvent.ModifierFlags([.command, .shift]))
-        static let captureQRCode = (keyCode: kVK_ANSI_6, modifiers: NSEvent.ModifierFlags([.command, .shift]))
+        static let captureText = (keyCode: kVK_ANSI_7, modifiers: NSEvent.ModifierFlags([.command, .shift]))  // ⇧⌘7
+        static let captureNoLineBreaks = (keyCode: kVK_ANSI_8, modifiers: NSEvent.ModifierFlags([.command, .shift]))  // ⇧⌘8
     }
 
     // Supported languages

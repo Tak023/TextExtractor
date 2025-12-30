@@ -49,10 +49,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         setupHotkeys()
         setupLocalMonitor()
 
-        // Preload success sound (Glass has a nice chime-like quality)
-        if let sound = NSSound(contentsOfFile: "/System/Library/Sounds/Glass.aiff", byReference: true) {
+        // Preload success sound
+        if let sound = NSSound(contentsOfFile: "/System/Library/Sounds/Blow.aiff", byReference: true) {
             successSound = sound
-            log("Success sound loaded (Glass)")
+            log("Success sound loaded (Blow)")
         } else {
             log("WARNING: Could not load success sound")
         }
@@ -219,10 +219,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Dismiss overlay first
         dismissOverlay()
 
-        // Small delay to ensure overlay is gone
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-            self?.captureAndOCR(rect: rect, screen: screen)
-        }
+        // Capture immediately (overlay is already hidden)
+        captureAndOCR(rect: rect, screen: screen)
     }
 
     // MARK: - Screen Capture & OCR
@@ -327,6 +325,7 @@ final class SelectionOverlayView: NSView {
 
     private var startPoint: NSPoint?
     private var currentPoint: NSPoint?
+    private var mouseLocation: NSPoint?
     private var trackingArea: NSTrackingArea?
 
     override init(frame: NSRect) {
@@ -342,11 +341,17 @@ final class SelectionOverlayView: NSView {
         super.viewDidMoveToWindow()
         if window != nil {
             setupTrackingArea()
-            // Hide system cursor and use crosshair
-            NSCursor.crosshair.push()
-            window?.disableCursorRects()
-            window?.invalidateCursorRects(for: self)
+            // Hide the system cursor
+            CGDisplayHideCursor(CGMainDisplayID())
+            // Get initial mouse location
+            mouseLocation = window?.mouseLocationOutsideOfEventStream
+            needsDisplay = true
         }
+    }
+
+    func cleanup() {
+        // Show the system cursor again
+        CGDisplayShowCursor(CGMainDisplayID())
     }
 
     private func setupTrackingArea() {
@@ -355,7 +360,7 @@ final class SelectionOverlayView: NSView {
         }
         trackingArea = NSTrackingArea(
             rect: bounds,
-            options: [.activeAlways, .mouseEnteredAndExited, .mouseMoved, .cursorUpdate, .inVisibleRect],
+            options: [.activeAlways, .mouseEnteredAndExited, .mouseMoved, .inVisibleRect],
             owner: self,
             userInfo: nil
         )
@@ -365,25 +370,14 @@ final class SelectionOverlayView: NSView {
     override var acceptsFirstResponder: Bool { true }
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
 
-    override func mouseEntered(with event: NSEvent) {
-        NSCursor.crosshair.set()
-    }
-
     override func mouseMoved(with event: NSEvent) {
-        NSCursor.crosshair.set()
-    }
-
-    override func cursorUpdate(with event: NSEvent) {
-        NSCursor.crosshair.set()
-    }
-
-    override func resetCursorRects() {
-        super.resetCursorRects()
-        addCursorRect(bounds, cursor: .crosshair)
+        mouseLocation = convert(event.locationInWindow, from: nil)
+        needsDisplay = true
     }
 
     override func keyDown(with event: NSEvent) {
         if event.keyCode == 53 { // Escape
+            cleanup()
             onCancel?()
         }
     }
@@ -392,16 +386,20 @@ final class SelectionOverlayView: NSView {
         log("mouseDown at: \(event.locationInWindow)")
         startPoint = convert(event.locationInWindow, from: nil)
         currentPoint = startPoint
+        mouseLocation = startPoint
         needsDisplay = true
     }
 
     override func mouseDragged(with event: NSEvent) {
         currentPoint = convert(event.locationInWindow, from: nil)
+        mouseLocation = currentPoint
         needsDisplay = true
     }
 
     override func mouseUp(with event: NSEvent) {
         log("mouseUp at: \(event.locationInWindow)")
+        cleanup()  // Restore cursor before processing
+
         guard let start = startPoint, let current = currentPoint else {
             log("mouseUp: no start/current point, cancelling")
             onCancel?()
@@ -429,6 +427,24 @@ final class SelectionOverlayView: NSView {
         // Dark overlay
         NSColor.black.withAlphaComponent(0.3).setFill()
         bounds.fill()
+
+        // Draw crosshair at current mouse location
+        if let mouse = mouseLocation {
+            let crosshairSize: CGFloat = 10
+            let crosshairPath = NSBezierPath()
+
+            // Horizontal line
+            crosshairPath.move(to: NSPoint(x: mouse.x - crosshairSize, y: mouse.y))
+            crosshairPath.line(to: NSPoint(x: mouse.x + crosshairSize, y: mouse.y))
+
+            // Vertical line
+            crosshairPath.move(to: NSPoint(x: mouse.x, y: mouse.y - crosshairSize))
+            crosshairPath.line(to: NSPoint(x: mouse.x, y: mouse.y + crosshairSize))
+
+            NSColor.white.setStroke()
+            crosshairPath.lineWidth = 1.5
+            crosshairPath.stroke()
+        }
 
         // Selection rectangle
         guard let start = startPoint, let current = currentPoint else { return }

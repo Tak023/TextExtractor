@@ -1,0 +1,16 @@
+{
+  "source": "/Users/mike/Projects/Git/TextExtractor/TextExtractor/App/TextExtractorApp.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "About Text Extractor",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 12
+        }
+      }
+    ]
+  },
+  "version": 1
+}

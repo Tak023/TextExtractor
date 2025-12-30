@@ -1,0 +1,40 @@
+{
+  "source": "/Users/mike/Projects/Git/TextExtractor/TextExtractor/Views/AboutView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Text Extractor",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 16
+        }
+      },
+      {
+        "comment": "",
+        "key": "Version %@ (%@)",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 21
+        }
+      },
+      {
+        "comment": "",
+        "key": "Capture text from anywhere on your screen using advanced OCR technology.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "2024 Text Extractor. All rights reserved.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 46
+        }
+      }
+    ]
+  },
+  "version": 1
+}

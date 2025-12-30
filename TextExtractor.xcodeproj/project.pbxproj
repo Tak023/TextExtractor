@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E81000002D00000100000001 /* TextExtractorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000001 /* TextExtractorApp.swift */; };
+		E81000002D00000100000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000002 /* AppDelegate.swift */; };
+		E81000002D00000100000003 /* CaptureOverlayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000003 /* CaptureOverlayWindow.swift */; };
+		E81000002D00000100000004 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000004 /* PreferencesView.swift */; };
+		E81000002D00000100000005 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000005 /* AboutView.swift */; };
+		E81000002D00000100000006 /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000006 /* OCRService.swift */; };
+		E81000002D00000100000007 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000007 /* QRCodeService.swift */; };
+		E81000002D00000100000008 /* ScreenCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000008 /* ScreenCaptureService.swift */; };
+		E81000002D00000100000009 /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000009 /* ClipboardService.swift */; };
+		E81000002D0000010000000A /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D0000010000000A /* SpeechService.swift */; };
+		E81000002D0000010000000B /* HotkeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D0000010000000B /* HotkeyService.swift */; };
+		E81000002D0000010000000C /* CaptureResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D0000010000000C /* CaptureResult.swift */; };
+		E81000002D0000010000000D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D0000010000000D /* AppSettings.swift */; };
+		E81000002D0000010000000E /* CaptureHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D0000010000000E /* CaptureHistory.swift */; };
+		E81000002D0000010000000F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D0000010000000F /* Constants.swift */; };
+		E81000002D00000100000010 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000010 /* Extensions.swift */; };
+		E81000002D00000100000011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000011 /* Assets.xcassets */; };
+		E81000002D00000100000012 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000012 /* PermissionsView.swift */; };
+		E81000002D00000100000013 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000013 /* NotificationService.swift */; };
+		E81000002D00000100000014 /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81000012D00000100000014 /* SoundService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E81000012D00000100000000 /* TextExtractor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextExtractor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E81000012D00000100000001 /* TextExtractorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtractorApp.swift; sourceTree = "<group>"; };
+		E81000012D00000100000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E81000012D00000100000003 /* CaptureOverlayWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOverlayWindow.swift; sourceTree = "<group>"; };
+		E81000012D00000100000004 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		E81000012D00000100000005 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		E81000012D00000100000006 /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
+		E81000012D00000100000007 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
+		E81000012D00000100000008 /* ScreenCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureService.swift; sourceTree = "<group>"; };
+		E81000012D00000100000009 /* ClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardService.swift; sourceTree = "<group>"; };
+		E81000012D0000010000000A /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		E81000012D0000010000000B /* HotkeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyService.swift; sourceTree = "<group>"; };
+		E81000012D0000010000000C /* CaptureResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureResult.swift; sourceTree = "<group>"; };
+		E81000012D0000010000000D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		E81000012D0000010000000E /* CaptureHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureHistory.swift; sourceTree = "<group>"; };
+		E81000012D0000010000000F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E81000012D00000100000010 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E81000012D00000100000011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E81000012D00000100000012 /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		E81000012D00000100000013 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		E81000012D00000100000014 /* SoundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundService.swift; sourceTree = "<group>"; };
+		E81000012D00000100000099 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E81000012D00000100000098 /* TextExtractor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TextExtractor.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E81000032D00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E81000042D00000100000001 = {
+			isa = PBXGroup;
+			children = (
+				E81000042D00000100000002 /* TextExtractor */,
+				E81000042D00000100000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000002 /* TextExtractor */ = {
+			isa = PBXGroup;
+			children = (
+				E81000042D00000100000004 /* App */,
+				E81000042D00000100000005 /* Views */,
+				E81000042D00000100000006 /* Services */,
+				E81000042D00000100000007 /* Models */,
+				E81000042D00000100000008 /* Utilities */,
+				E81000042D00000100000009 /* Resources */,
+				E81000012D00000100000099 /* Info.plist */,
+				E81000012D00000100000098 /* TextExtractor.entitlements */,
+			);
+			path = TextExtractor;
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E81000012D00000100000000 /* TextExtractor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000004 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E81000012D00000100000001 /* TextExtractorApp.swift */,
+				E81000012D00000100000002 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000005 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E81000012D00000100000003 /* CaptureOverlayWindow.swift */,
+				E81000012D00000100000004 /* PreferencesView.swift */,
+				E81000012D00000100000005 /* AboutView.swift */,
+				E81000012D00000100000012 /* PermissionsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000006 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E81000012D00000100000006 /* OCRService.swift */,
+				E81000012D00000100000007 /* QRCodeService.swift */,
+				E81000012D00000100000008 /* ScreenCaptureService.swift */,
+				E81000012D00000100000009 /* ClipboardService.swift */,
+				E81000012D0000010000000A /* SpeechService.swift */,
+				E81000012D0000010000000B /* HotkeyService.swift */,
+				E81000012D00000100000013 /* NotificationService.swift */,
+				E81000012D00000100000014 /* SoundService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000007 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E81000012D0000010000000C /* CaptureResult.swift */,
+				E81000012D0000010000000D /* AppSettings.swift */,
+				E81000012D0000010000000E /* CaptureHistory.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000008 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E81000012D0000010000000F /* Constants.swift */,
+				E81000012D00000100000010 /* Extensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E81000042D00000100000009 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E81000012D00000100000011 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E81000052D00000100000001 /* TextExtractor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E81000062D00000100000001 /* Build configuration list for PBXNativeTarget "TextExtractor" */;
+			buildPhases = (
+				E81000072D00000100000001 /* Sources */,
+				E81000032D00000100000001 /* Frameworks */,
+				E81000082D00000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextExtractor;
+			productName = TextExtractor;
+			productReference = E81000012D00000100000000 /* TextExtractor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E81000092D00000100000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					E81000052D00000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = E810000A2D00000100000001 /* Build configuration list for PBXProject "TextExtractor" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E81000042D00000100000001;
+			productRefGroup = E81000042D00000100000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E81000052D00000100000001 /* TextExtractor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E81000082D00000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E81000002D00000100000011 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E81000072D00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E81000002D00000100000001 /* TextExtractorApp.swift in Sources */,
+				E81000002D00000100000002 /* AppDelegate.swift in Sources */,
+				E81000002D00000100000003 /* CaptureOverlayWindow.swift in Sources */,
+				E81000002D00000100000004 /* PreferencesView.swift in Sources */,
+				E81000002D00000100000005 /* AboutView.swift in Sources */,
+				E81000002D00000100000006 /* OCRService.swift in Sources */,
+				E81000002D00000100000007 /* QRCodeService.swift in Sources */,
+				E81000002D00000100000008 /* ScreenCaptureService.swift in Sources */,
+				E81000002D00000100000009 /* ClipboardService.swift in Sources */,
+				E81000002D0000010000000A /* SpeechService.swift in Sources */,
+				E81000002D0000010000000B /* HotkeyService.swift in Sources */,
+				E81000002D0000010000000C /* CaptureResult.swift in Sources */,
+				E81000002D0000010000000D /* AppSettings.swift in Sources */,
+				E81000002D0000010000000E /* CaptureHistory.swift in Sources */,
+				E81000002D0000010000000F /* Constants.swift in Sources */,
+				E81000002D00000100000010 /* Extensions.swift in Sources */,
+				E81000002D00000100000012 /* PermissionsView.swift in Sources */,
+				E81000002D00000100000013 /* NotificationService.swift in Sources */,
+				E81000002D00000100000014 /* SoundService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E810000B2D00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E810000B2D00000100000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		E810000C2D00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TextExtractor/TextExtractor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TextExtractor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Text Extractor";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.textextractor.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E810000C2D00000100000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TextExtractor/TextExtractor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TextExtractor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Text Extractor";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.textextractor.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E810000A2D00000100000001 /* Build configuration list for PBXProject "TextExtractor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E810000B2D00000100000001 /* Debug */,
+				E810000B2D00000100000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E81000062D00000100000001 /* Build configuration list for PBXNativeTarget "TextExtractor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E810000C2D00000100000001 /* Debug */,
+				E810000C2D00000100000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E81000092D00000100000001 /* Project object */;
+}

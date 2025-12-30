@@ -1,0 +1,12 @@
+{
+  "/Users/mike/Projects/Git/TextExtractor/TextExtractor/App/TextExtractorApp.swift" : {
+    "abi-baseline-json" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor.abi.json",
+    "const-values" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary.swiftconstvalues",
+    "dependencies" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary.d",
+    "diagnostics" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-primary.dia",
+    "objc-header" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor-Swift.h",
+    "swiftdoc" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor.swiftdoc",
+    "swiftmodule" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor.swiftmodule",
+    "swiftsourceinfo" : "/Users/mike/Projects/Git/TextExtractor/build/Build/Intermediates.noindex/TextExtractor.build/Release/TextExtractor.build/Objects-normal/arm64/TextExtractor.swiftsourceinfo"
+  }
+}

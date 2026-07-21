@@ -5,11 +5,18 @@ A lightweight macOS menu bar application for extracting text from any area of yo
 ## Features
 
 - **Quick Screen Capture**: Press a global hotkey to instantly start selecting a screen region
-- **Accurate OCR**: Uses Apple's Vision framework for high-quality text recognition
-- **Three Capture Modes**:
+- **Accurate OCR**: Uses Apple's Vision framework (via ScreenCaptureKit) with smart line grouping for correctly ordered text
+- **Four Capture Modes**:
   - **With Line Breaks** (⇧⌘7): Preserves the original line structure of the text
   - **Without Line Breaks** (⇧⌘8): Joins all text into a single continuous string
   - **Capture & Speak** (⇧⌘9): Captures text and reads it aloud using Text-to-Speech
+  - **Capture & Append** (⇧⌘0): Adds the capture to the existing clipboard contents instead of replacing them
+- **Capture History**: The last 10 captures are kept in the menu bar (Recent Captures) — click any entry to re-copy it
+- **Copy Preview HUD**: A small floating "Copied ✓" panel shows a preview of what was captured (toggle in Settings)
+- **QR & Barcode Detection**: QR codes and barcodes in the selection are decoded and their payloads copied along with the text
+- **Recognition Language**: Auto-detect or pin OCR to one of 10 languages (Settings → Recognition Language)
+- **Table Column Detection**: Optionally emit tabs between detected columns so captures paste cleanly into spreadsheets (Settings → Detect Table Columns)
+- **Launch at Login**: One-click toggle in Settings
 - **Text-to-Speech**: Have captured text read aloud with adjustable speech rate
 - **Visual Feedback**: Dark overlay with selection rectangle and dimension display
 - **Audio Confirmation**: Plays a sound when text is successfully copied
@@ -117,11 +124,14 @@ Launch TextExtractor from your Applications folder or use the provided launch sc
    - Press `⇧⌘7` (Shift+Command+7) to capture with line breaks preserved
    - Press `⇧⌘8` (Shift+Command+8) to capture without line breaks
    - Press `⇧⌘9` (Shift+Command+9) to capture and have the text read aloud
+   - Press `⇧⌘0` (Shift+Command+0) to capture and append to the current clipboard contents
 
 2. **Using the Menu**:
    - Click the 📋 icon in the menu bar
-   - Select "Capture Text (⇧⌘7)", "Capture Text No Breaks (⇧⌘8)", or "Capture & Speak (⇧⌘9)"
+   - Select one of the four capture modes
+   - Use "Recent Captures" to re-copy any of the last 10 captures
    - Use "Stop Speaking" to interrupt text-to-speech playback
+   - Use "Settings" to change recognition language, toggle table-column detection, the copy preview, or launch at login
 
 3. **Selecting a Region**:
    - A dark overlay will appear over your screen
@@ -131,7 +141,8 @@ Launch TextExtractor from your Applications folder or use the provided launch sc
 
 4. **Result**:
    - The extracted text is automatically copied to your clipboard
-   - A sound confirms successful capture
+   - Any QR codes or barcodes in the selection are decoded and included
+   - A sound confirms successful capture, and a small "Copied ✓" preview appears (if enabled)
    - Paste the text anywhere using `⌘V`
    - If using Capture & Speak, the text will be read aloud automatically
 

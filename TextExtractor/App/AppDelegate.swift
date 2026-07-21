@@ -2,6 +2,8 @@ import AppKit
 import AudioToolbox
 import Carbon
 import CoreGraphics
+import ScreenCaptureKit
+import ServiceManagement
 import Vision
 
 // Simple file logger
@@ -34,14 +36,49 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var overlayView: SelectionOverlayView?
     private var keepLineBreaks: Bool = true
     private var speakAfterCapture: Bool = false
+    private var appendToClipboard: Bool = false
     private var successSound: NSSound?
     private let speechService = SpeechService()
+    private var hudWindow: NSPanel?
+    private var hudDismissTask: DispatchWorkItem?
 
     // Hotkey references
     private var hotkeyRef1: EventHotKeyRef?
     private var hotkeyRef2: EventHotKeyRef?
     private var hotkeyRef3: EventHotKeyRef?
+    private var hotkeyRef4: EventHotKeyRef?
     private static var shared: AppDelegate?
+
+    // MARK: - Settings (persisted in UserDefaults)
+
+    private enum SettingsKey {
+        static let history = "captureHistory"
+        static let language = "recognitionLanguage"
+        static let detectColumns = "detectColumns"
+        static let showPreview = "showCopyPreview"
+    }
+
+    private static let languages: [(name: String, code: String)] = [
+        ("Auto-Detect", "auto"),
+        ("English", "en-US"),
+        ("Spanish", "es-ES"),
+        ("French", "fr-FR"),
+        ("German", "de-DE"),
+        ("Italian", "it-IT"),
+        ("Portuguese", "pt-BR"),
+        ("Chinese (Simplified)", "zh-Hans"),
+        ("Japanese", "ja-JP"),
+        ("Korean", "ko-KR"),
+        ("Russian", "ru-RU"),
+    ]
+
+    private let maxHistoryItems = 10
+    private var captureHistory: [String] = UserDefaults.standard.stringArray(forKey: SettingsKey.history) ?? []
+    private var recognitionLanguage: String = UserDefaults.standard.string(forKey: SettingsKey.language) ?? "auto"
+    private var detectColumns: Bool = UserDefaults.standard.bool(forKey: SettingsKey.detectColumns)
+    private var showCopyPreview: Bool = UserDefaults.standard.object(forKey: SettingsKey.showPreview) == nil
+        ? true
+        : UserDefaults.standard.bool(forKey: SettingsKey.showPreview)
 
     // MARK: - App Lifecycle
 
@@ -108,16 +145,163 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if let button = statusItem.button {
             button.title = "📋"
         }
+        rebuildMenu()
+    }
 
+    private func rebuildMenu() {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Capture Text (⇧⌘7)", action: #selector(captureWithLineBreaks), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Capture Text No Breaks (⇧⌘8)", action: #selector(captureWithoutLineBreaks), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Capture & Speak (⇧⌘9)", action: #selector(captureAndSpeak), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Capture & Append (⇧⌘0)", action: #selector(captureAndAppend), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
+
+        // Recent captures submenu
+        let historyItem = NSMenuItem(title: "Recent Captures", action: nil, keyEquivalent: "")
+        let historyMenu = NSMenu()
+        if captureHistory.isEmpty {
+            let empty = NSMenuItem(title: "No Captures Yet", action: nil, keyEquivalent: "")
+            empty.isEnabled = false
+            historyMenu.addItem(empty)
+        } else {
+            for (index, entry) in captureHistory.enumerated() {
+                let item = NSMenuItem(title: menuTitle(for: entry), action: #selector(copyHistoryItem(_:)), keyEquivalent: "")
+                item.tag = index
+                item.toolTip = String(entry.prefix(500))
+                historyMenu.addItem(item)
+            }
+            historyMenu.addItem(NSMenuItem.separator())
+            historyMenu.addItem(NSMenuItem(title: "Clear History", action: #selector(clearHistory), keyEquivalent: ""))
+        }
+        historyItem.submenu = historyMenu
+        menu.addItem(historyItem)
+        menu.addItem(NSMenuItem.separator())
+
         menu.addItem(NSMenuItem(title: "Stop Speaking", action: #selector(stopSpeaking), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
+
+        // Settings submenu
+        let settingsItem = NSMenuItem(title: "Settings", action: nil, keyEquivalent: "")
+        let settingsMenu = NSMenu()
+
+        let languageItem = NSMenuItem(title: "Recognition Language", action: nil, keyEquivalent: "")
+        let languageMenu = NSMenu()
+        for language in Self.languages {
+            let item = NSMenuItem(title: language.name, action: #selector(selectLanguage(_:)), keyEquivalent: "")
+            item.representedObject = language.code
+            item.state = (language.code == recognitionLanguage) ? .on : .off
+            languageMenu.addItem(item)
+        }
+        languageItem.submenu = languageMenu
+        settingsMenu.addItem(languageItem)
+
+        let columnsItem = NSMenuItem(title: "Detect Table Columns (Tabs)", action: #selector(toggleDetectColumns), keyEquivalent: "")
+        columnsItem.state = detectColumns ? .on : .off
+        settingsMenu.addItem(columnsItem)
+
+        let previewItem = NSMenuItem(title: "Show Copy Preview", action: #selector(togglePreview), keyEquivalent: "")
+        previewItem.state = showCopyPreview ? .on : .off
+        settingsMenu.addItem(previewItem)
+
+        let loginItem = NSMenuItem(title: "Launch at Login", action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
+        loginItem.state = (SMAppService.mainApp.status == .enabled) ? .on : .off
+        settingsMenu.addItem(loginItem)
+
+        settingsItem.submenu = settingsMenu
+        menu.addItem(settingsItem)
+        menu.addItem(NSMenuItem.separator())
+
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
+    }
+
+    private func menuTitle(for text: String) -> String {
+        let firstLine = text
+            .split(separator: "\n", omittingEmptySubsequences: true)
+            .first
+            .map(String.init) ?? text
+        let trimmed = firstLine.trimmingCharacters(in: .whitespaces)
+        return trimmed.count > 45 ? String(trimmed.prefix(45)) + "…" : trimmed
+    }
+
+    // MARK: - Menu Actions
+
+    @objc private func copyHistoryItem(_ sender: NSMenuItem) {
+        guard sender.tag >= 0 && sender.tag < captureHistory.count else { return }
+        let text = captureHistory[sender.tag]
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(text, forType: .string)
+        playSuccessSound()
+        if showCopyPreview {
+            showResultHUD(text, title: "Copied ✓")
+        }
+        log("History item \(sender.tag) re-copied")
+    }
+
+    @objc private func clearHistory() {
+        captureHistory.removeAll()
+        UserDefaults.standard.set(captureHistory, forKey: SettingsKey.history)
+        rebuildMenu()
+        log("History cleared")
+    }
+
+    @objc private func selectLanguage(_ sender: NSMenuItem) {
+        guard let code = sender.representedObject as? String else { return }
+        recognitionLanguage = code
+        UserDefaults.standard.set(code, forKey: SettingsKey.language)
+        rebuildMenu()
+        log("Recognition language set to \(code)")
+    }
+
+    @objc private func toggleDetectColumns() {
+        detectColumns.toggle()
+        UserDefaults.standard.set(detectColumns, forKey: SettingsKey.detectColumns)
+        rebuildMenu()
+        log("Detect columns: \(detectColumns)")
+    }
+
+    @objc private func togglePreview() {
+        showCopyPreview.toggle()
+        UserDefaults.standard.set(showCopyPreview, forKey: SettingsKey.showPreview)
+        rebuildMenu()
+        log("Show copy preview: \(showCopyPreview)")
+    }
+
+    @objc private func toggleLaunchAtLogin() {
+        do {
+            if SMAppService.mainApp.status == .enabled {
+                try SMAppService.mainApp.unregister()
+                log("Launch at login disabled")
+            } else {
+                try SMAppService.mainApp.register()
+                log("Launch at login enabled")
+            }
+        } catch {
+            log("ERROR: Launch at login toggle failed: \(error)")
+            NSSound.beep()
+        }
+        rebuildMenu()
+    }
+
+    private func addToHistory(_ text: String) {
+        // Deduplicate: remove identical earlier capture, insert at front
+        captureHistory.removeAll { $0 == text }
+        captureHistory.insert(text, at: 0)
+        if captureHistory.count > maxHistoryItems {
+            captureHistory = Array(captureHistory.prefix(maxHistoryItems))
+        }
+        UserDefaults.standard.set(captureHistory, forKey: SettingsKey.history)
+        rebuildMenu()
+    }
+
+    private func playSuccessSound() {
+        if let sound = successSound {
+            sound.stop()
+            sound.play()
+        } else {
+            NSSound.beep()
+        }
     }
 
     // MARK: - Hotkeys
@@ -139,6 +323,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                     AppDelegate.shared?.captureWithoutLineBreaks()
                 } else if hotkeyID.id == 3 {
                     AppDelegate.shared?.captureAndSpeak()
+                } else if hotkeyID.id == 4 {
+                    AppDelegate.shared?.captureAndAppend()
                 }
             }
             return noErr
@@ -158,6 +344,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         var hotkey3 = EventHotKeyID(signature: OSType(0x4558), id: 3)
         let reg3 = RegisterEventHotKey(UInt32(kVK_ANSI_9), UInt32(shiftKey | cmdKey), hotkey3, GetApplicationEventTarget(), 0, &hotkeyRef3)
         log("RegisterEventHotKey ⇧⌘9 result: \(reg3)")
+
+        var hotkey4 = EventHotKeyID(signature: OSType(0x4558), id: 4)
+        let reg4 = RegisterEventHotKey(UInt32(kVK_ANSI_0), UInt32(shiftKey | cmdKey), hotkey4, GetApplicationEventTarget(), 0, &hotkeyRef4)
+        log("RegisterEventHotKey ⇧⌘0 result: \(reg4)")
     }
 
     // MARK: - Capture Actions
@@ -166,6 +356,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         log("captureWithLineBreaks called")
         keepLineBreaks = true
         speakAfterCapture = false
+        appendToClipboard = false
         showOverlay()
     }
 
@@ -173,6 +364,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         log("captureWithoutLineBreaks called")
         keepLineBreaks = false
         speakAfterCapture = false
+        appendToClipboard = false
         showOverlay()
     }
 
@@ -180,6 +372,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         log("captureAndSpeak called")
         keepLineBreaks = true
         speakAfterCapture = true
+        appendToClipboard = false
+        showOverlay()
+    }
+
+    @objc func captureAndAppend() {
+        log("captureAndAppend called")
+        keepLineBreaks = true
+        speakAfterCapture = false
+        appendToClipboard = true
         showOverlay()
     }
 
@@ -188,10 +389,42 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         speechService.stop()
     }
 
+    // MARK: - Permissions
+
+    /// Returns true if Screen Recording permission is granted.
+    /// Otherwise triggers the system prompt and shows an explanatory alert.
+    private func ensureScreenCapturePermission() -> Bool {
+        if CGPreflightScreenCaptureAccess() { return true }
+        log("Screen capture permission missing - showing alert")
+
+        // Trigger the system prompt (adds the app to the Screen Recording list)
+        CGRequestScreenCaptureAccess()
+
+        let alert = NSAlert()
+        alert.messageText = "Screen Recording Permission Required"
+        alert.informativeText = """
+        Text Extractor can't capture text without Screen Recording permission.
+
+        Enable "Text Extractor" in System Settings → Privacy & Security → \
+        Screen & System Audio Recording, then relaunch the app.
+        """
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Open System Settings")
+        alert.addButton(withTitle: "Cancel")
+        NSApp.activate(ignoringOtherApps: true)
+        if alert.runModal() == .alertFirstButtonReturn {
+            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture") {
+                NSWorkspace.shared.open(url)
+            }
+        }
+        return false
+    }
+
     // MARK: - Overlay
 
     private func showOverlay() {
         log("showOverlay called")
+        guard ensureScreenCapturePermission() else { return }
         guard let screen = NSScreen.main else {
             log("No main screen!")
             return
@@ -251,6 +484,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Screen Capture & OCR
 
+    private enum CaptureError: Error {
+        case noDisplayFound
+    }
+
     private func captureAndOCR(rect: NSRect, screen: NSScreen) {
         log("captureAndOCR called with rect: \(rect)")
 
@@ -264,17 +501,49 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         )
         log("Capture rect (Quartz coords): \(captureRect)")
 
-        // Capture screen
-        guard let cgImage = CGWindowListCreateImage(
-            captureRect,
-            .optionOnScreenOnly,
-            kCGNullWindowID,
-            [.bestResolution]
-        ) else {
-            log("ERROR: CGWindowListCreateImage returned nil")
-            NSSound.beep()
-            return
+        Task {
+            do {
+                let cgImage = try await captureImage(captureRect, screen: screen)
+                processImage(cgImage)
+            } catch {
+                log("ERROR: Screen capture failed: \(error)")
+                NSSound.beep()
+            }
         }
+    }
+
+    /// Capture a region of the screen using ScreenCaptureKit.
+    /// (CGWindowListCreateImage is deprecated and silently returns
+    /// wallpaper-only images when Screen Recording permission is missing.)
+    private func captureImage(_ captureRect: CGRect, screen: NSScreen) async throws -> CGImage {
+        let content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: true)
+
+        // Find the display containing the selection
+        guard let display = content.displays.first(where: { $0.frame.intersects(captureRect) })
+                ?? content.displays.first else {
+            throw CaptureError.noDisplayFound
+        }
+
+        let filter = SCContentFilter(display: display, excludingWindows: [])
+
+        let config = SCStreamConfiguration()
+        let scale = screen.backingScaleFactor
+        // sourceRect is in points, relative to the display's own origin
+        config.sourceRect = CGRect(
+            x: captureRect.origin.x - display.frame.origin.x,
+            y: captureRect.origin.y - display.frame.origin.y,
+            width: captureRect.width,
+            height: captureRect.height
+        )
+        config.width = Int(captureRect.width * scale)
+        config.height = Int(captureRect.height * scale)
+        config.showsCursor = false
+        config.captureResolution = .best
+
+        return try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
+    }
+
+    private func processImage(_ cgImage: CGImage) {
         log("Image captured: \(cgImage.width)x\(cgImage.height)")
 
         // Save debug image
@@ -284,68 +553,220 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             log("Debug image saved to /tmp/textextractor_capture.png")
         }
 
-        // Perform OCR
+        // Perform OCR + barcode detection in one pass
         let request = VNRecognizeTextRequest()
         request.recognitionLevel = .accurate
         request.usesLanguageCorrection = true
+        if recognitionLanguage == "auto" {
+            request.automaticallyDetectsLanguage = true
+        } else {
+            request.recognitionLanguages = [recognitionLanguage]
+        }
+
+        let barcodeRequest = VNDetectBarcodesRequest()
 
         let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
 
         do {
-            try handler.perform([request])
+            try handler.perform([request, barcodeRequest])
         } catch {
+            log("ERROR: Vision request failed: \(error)")
             NSSound.beep()
             return
         }
 
-        guard let observations = request.results, !observations.isEmpty else {
-            log("ERROR: No text observations found")
+        let barcodePayloads = (barcodeRequest.results ?? [])
+            .compactMap { $0.payloadStringValue }
+        if !barcodePayloads.isEmpty {
+            log("Found \(barcodePayloads.count) barcode(s)/QR code(s)")
+        }
+
+        let observations = request.results ?? []
+        guard !observations.isEmpty || !barcodePayloads.isEmpty else {
+            log("ERROR: No text or barcodes found")
             NSSound.beep()
+            if showCopyPreview {
+                showResultHUD("", title: "No text found")
+            }
             return
         }
         log("OCR found \(observations.count) observations")
 
-        // Extract text
-        let text: String
-        if keepLineBreaks {
-            let lines = observations
-                .sorted { $0.boundingBox.origin.y > $1.boundingBox.origin.y }
-                .compactMap { $0.topCandidates(1).first?.string }
-            text = lines.joined(separator: "\n")
-        } else {
-            let lines = observations
-                .sorted { $0.boundingBox.origin.y > $1.boundingBox.origin.y }
-                .compactMap { $0.topCandidates(1).first?.string }
-            text = lines.joined(separator: " ")
+        // Extract text.
+        // Vision can split one visual line into several observations and
+        // returns them in no guaranteed order, so sorting by Y alone
+        // scrambles the output. Instead: group observations into visual
+        // lines by vertical overlap, then sort left-to-right within a line.
+        let items: [(box: CGRect, text: String)] = observations.compactMap { obs in
+            guard let str = obs.topCandidates(1).first?.string else { return nil }
+            return (obs.boundingBox, str)
+        }
+        // Top to bottom (normalized coordinates have a bottom-left origin)
+        .sorted { $0.0.midY > $1.0.midY }
+
+        var lines: [(rect: CGRect, items: [(box: CGRect, text: String)])] = []
+        for item in items {
+            if let i = lines.indices.last {
+                let ref = lines[i].rect
+                let overlap = min(item.box.maxY, ref.maxY) - max(item.box.minY, ref.minY)
+                // Same visual line if it vertically overlaps >50% of the shorter box
+                if overlap > min(item.box.height, ref.height) * 0.5 {
+                    lines[i].items.append(item)
+                    lines[i].rect = lines[i].rect.union(item.box)
+                    continue
+                }
+            }
+            lines.append((item.box, [item]))
+        }
+
+        let textLines = lines.map { line -> String in
+            let sorted = line.items.sorted { $0.box.minX < $1.box.minX }
+            guard detectColumns, sorted.count > 1 else {
+                return sorted.map(\.text).joined(separator: " ")
+            }
+            // Column detection: a horizontal gap wider than one character
+            // height (~2 characters) marks a column boundary → emit a tab
+            var result = sorted[0].text
+            for i in 1..<sorted.count {
+                let gap = sorted[i].box.minX - sorted[i - 1].box.maxX
+                let charHeight = max(sorted[i].box.height, sorted[i - 1].box.height)
+                result += (gap > charHeight ? "\t" : " ") + sorted[i].text
+            }
+            return result
+        }
+        var text = textLines.joined(separator: keepLineBreaks ? "\n" : " ")
+        log("Grouped \(observations.count) observations into \(textLines.count) lines")
+
+        // Include QR/barcode payloads (payload only when nothing else was found)
+        if !barcodePayloads.isEmpty {
+            let payloadText = barcodePayloads.joined(separator: "\n")
+            text = text.isEmpty ? payloadText : text + "\n" + payloadText
         }
 
         guard !text.isEmpty else {
             log("ERROR: Extracted text is empty")
             NSSound.beep()
+            if showCopyPreview {
+                showResultHUD("", title: "No text found")
+            }
             return
         }
         log("Extracted text (\(text.count) chars): \(text.prefix(100))...")
 
-        // Copy to clipboard and play sound immediately
+        // Copy (or append) to clipboard and play sound immediately
         let pasteboard = NSPasteboard.general
-        pasteboard.clearContents()
-        pasteboard.setString(text, forType: .string)
-
-        // Play success sound immediately after copy
-        if let sound = successSound {
-            sound.stop()
-            sound.play()
+        let hudTitle: String
+        if appendToClipboard,
+           let existing = pasteboard.string(forType: .string),
+           !existing.isEmpty {
+            pasteboard.clearContents()
+            pasteboard.setString(existing + "\n\n" + text, forType: .string)
+            hudTitle = "Appended ✓"
         } else {
-            NSSound.beep()
+            pasteboard.clearContents()
+            pasteboard.setString(text, forType: .string)
+            hudTitle = "Copied ✓"
         }
 
+        playSuccessSound()
+        addToHistory(text)
         log("Text copied to clipboard, sound played")
+
+        if showCopyPreview {
+            showResultHUD(text, title: hudTitle)
+        }
 
         // Speak the text if requested
         if speakAfterCapture {
             log("Speaking text...")
             speechService.speak(text)
         }
+    }
+
+    // MARK: - Result HUD
+
+    /// Small floating "Copied ✓" panel with a preview of the captured text.
+    /// Non-activating, click-through, auto-dismisses after a short delay.
+    private func showResultHUD(_ text: String, title: String) {
+        hudDismissTask?.cancel()
+        hudWindow?.orderOut(nil)
+        hudWindow = nil
+
+        guard let screen = NSScreen.main else { return }
+
+        // Build content
+        let titleLabel = NSTextField(labelWithString: title)
+        titleLabel.font = .systemFont(ofSize: 13, weight: .semibold)
+        titleLabel.textColor = .labelColor
+
+        let preview = text
+            .split(separator: "\n", omittingEmptySubsequences: true)
+            .prefix(3)
+            .joined(separator: "\n")
+        let previewLabel = NSTextField(wrappingLabelWithString: String(preview.prefix(200)))
+        previewLabel.font = .systemFont(ofSize: 11)
+        previewLabel.textColor = .secondaryLabelColor
+        previewLabel.maximumNumberOfLines = 3
+        previewLabel.preferredMaxLayoutWidth = 300
+
+        let stack = NSStackView(views: text.isEmpty ? [titleLabel] : [titleLabel, previewLabel])
+        stack.orientation = .vertical
+        stack.alignment = .leading
+        stack.spacing = 4
+        stack.edgeInsets = NSEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        let effectView = NSVisualEffectView()
+        effectView.material = .hudWindow
+        effectView.state = .active
+        effectView.wantsLayer = true
+        effectView.layer?.cornerRadius = 10
+        effectView.layer?.masksToBounds = true
+        effectView.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: effectView.topAnchor),
+            stack.bottomAnchor.constraint(equalTo: effectView.bottomAnchor),
+            stack.leadingAnchor.constraint(equalTo: effectView.leadingAnchor),
+            stack.trailingAnchor.constraint(equalTo: effectView.trailingAnchor),
+            stack.widthAnchor.constraint(lessThanOrEqualToConstant: 340),
+        ])
+
+        let size = effectView.fittingSize
+        // Top-right corner, just below the menu bar
+        let origin = NSPoint(
+            x: screen.visibleFrame.maxX - size.width - 16,
+            y: screen.visibleFrame.maxY - size.height - 16
+        )
+
+        let panel = NSPanel(
+            contentRect: NSRect(origin: origin, size: size),
+            styleMask: [.borderless, .nonactivatingPanel],
+            backing: .buffered,
+            defer: false
+        )
+        panel.level = .statusBar
+        panel.isOpaque = false
+        panel.backgroundColor = .clear
+        panel.hasShadow = true
+        panel.ignoresMouseEvents = true
+        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        panel.contentView = effectView
+        panel.orderFrontRegardless()
+        hudWindow = panel
+
+        // Fade out and dismiss
+        let dismiss = DispatchWorkItem { [weak self] in
+            guard let panel = self?.hudWindow else { return }
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.4
+                panel.animator().alphaValue = 0
+            }, completionHandler: {
+                panel.orderOut(nil)
+                if self?.hudWindow === panel { self?.hudWindow = nil }
+            })
+        }
+        hudDismissTask = dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.2, execute: dismiss)
     }
 }
 

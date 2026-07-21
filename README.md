@@ -204,11 +204,33 @@ Debug captures are saved to `/tmp/textextractor_capture.png` for verification.
 
 - **Swift 5**: Primary programming language
 - **AppKit**: macOS UI framework for menu bar app and overlay window
-- **Vision Framework**: Apple's machine learning framework for OCR
+- **Vision Framework**: Apple's machine learning framework for OCR and barcode detection
+- **ScreenCaptureKit**: Modern screen capture (`SCScreenshotManager`)
 - **AVFoundation**: Text-to-Speech synthesis via `AVSpeechSynthesizer`
-- **Core Graphics**: Screen capture via `CGWindowListCreateImage`
 - **Carbon Events**: Global hotkey registration (`RegisterEventHotKey`)
+- **ServiceManagement**: Launch-at-login support (`SMAppService`)
 - **AudioToolbox**: System sound playback
+
+## Changelog
+
+### July 2026
+
+**Fixes**
+- **Restored broken text capture**: Migrated from the deprecated `CGWindowListCreateImage` (which silently returns wallpaper-only images without permission on modern macOS) to ScreenCaptureKit's `SCScreenshotManager`
+- **Permissions now survive rebuilds**: The build script signs the app with a stable designated requirement, so macOS no longer revokes Screen Recording permission after every rebuild
+- **Clear permission errors**: If Screen Recording permission is missing, an alert with an "Open System Settings" button appears instead of a silent failure
+- **Correct text ordering**: OCR observations are now grouped into visual lines by vertical overlap and sorted left-to-right, fixing scrambled/out-of-order output on video frames and multi-fragment lines
+
+**New Features**
+- Capture & Append mode (`⇧⌘0`)
+- Recent Captures history (last 10, persisted, re-copy from menu)
+- Floating "Copied ✓" preview HUD
+- QR code and barcode detection
+- Recognition language selection (auto-detect + 10 languages)
+- Table column detection (tab-separated output for spreadsheets)
+- Launch at Login toggle
+- New app icon
+- Build script fallback that compiles directly with the Swift toolchain when `xcodebuild` is unavailable
 
 ## License
 

@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Xcode / build output
+build/
+DerivedData/
+*.xcarchive
+xcuserdata/
+
+# Claude Code local settings
+.claude/settings.local.json
